@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace MunroLibrary.Data
 {
@@ -20,7 +21,6 @@ namespace MunroLibrary.Data
 
             // Get data and loop
             File.ReadLines(dataFile)
-                .Skip(1)
                 .ToList()
                 .ForEach(row =>
                 {
@@ -38,6 +38,47 @@ namespace MunroLibrary.Data
 
             return munros;
         }
+
+        public PagedResult<Munro> GetPaged(
+            int page,
+            int pageSize,
+            string[] sortFields,
+            bool sortDescending,
+            Expression<Func<Munro, bool>> filterBy)
+        {
+            var query = GetData().AsQueryable();
+
+            // Sorting
+            if (sortFields != null && sortFields.Length > 0)
+            {
+                for (int i = 0; i < sortFields.Length; i++)
+                {
+                    string sortField = sortFields[i];
+                    if (sortDescending)
+                    {
+                        query = i.Equals(0) ?
+                            query.OrderByDescending(sortField) :
+                            query.ThenByDescending(sortField);
+                    }
+                    else
+                    {
+                        query = i.Equals(0) ?
+                            query.OrderBy(sortField) :
+                            query.ThenBy(sortField);
+                    }
+                }
+            }
+
+            // Filtering
+            if (filterBy != null)
+            {
+                query = query.Where(filterBy);
+            }
+
+            return query.GetPaged(page, pageSize);
+        }
+
+
 
         /// <summary>
         /// Get columns from a row
@@ -58,8 +99,8 @@ namespace MunroLibrary.Data
         /// <returns></returns>
         private static T GetByIndex<T>(string row, int index)
         {
-            var data = GetRowColumns(row);
-            return data[index].ConvertFromString<T>();
+            var columns = GetRowColumns(row);
+            return columns[index].ConvertFromString<T>();
         }
 
         /// <summary>
@@ -68,9 +109,9 @@ namespace MunroLibrary.Data
         private static class DataIndex
         {
             public const int Id = 0;
-            public const int Name = 5;
-            public const int HeightMeters = 9;
-            public const int GridRef = 13;
+            public const int Name = 6;
+            public const int HeightMeters = 10;
+            public const int GridRef = 14;
             public const int MunroType = 27;
         }
 

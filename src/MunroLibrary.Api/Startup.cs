@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MunroLibrary.Data;
 
 namespace MunroLibrary.Api
 {
@@ -26,6 +27,9 @@ namespace MunroLibrary.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            // Add Dependancy Injection
+            services.AddScoped<IMunroRepository, MunroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

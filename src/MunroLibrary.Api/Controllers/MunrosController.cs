@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
+using MunroLibrary.Api.Dtos;
+using MunroLibrary.Api.Extensions;
 using MunroLibrary.Data;
 using MunroLibrary.Domain;
 
@@ -12,20 +12,43 @@ namespace MunroLibrary.Api.Controllers
     [ApiController]
     public class MunrosController : ControllerBase
     {
-        // GET: api/<Munros>
-        [HttpGet]
-        public IEnumerable<Munro> Get()
+        private readonly IMunroRepository repository;
+ 
+        public MunrosController(IMunroRepository repository)
         {
-            var data = new MunroRepository();
-
-            return data.GetData();
+            this.repository = repository;
         }
 
-        // GET api/<Munros>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/Munros
+        [HttpGet]
+        public PagedResult<Munro> Get([FromQuery] MunroQueryDto query)
         {
-            return "value";
+            return repository.GetPaged(
+                query.PageNumber,
+                query.PageSize,
+                query.SortFields,
+                query.SortDescending,
+                GetFilterExpression(query));
+        }
+
+        private Expression<Func<Munro, bool>> GetFilterExpression(MunroQueryDto query)
+        {
+            Expression<Func<Munro, bool>> filterExpression = null;
+
+            if (query.MunroType != null)
+            {
+                filterExpression = filterExpression.AndWithNullCheck(x => x.MunroType.Equals(query.MunroType));
+            }
+            if (query.MinHeight != null)
+            {
+                filterExpression = filterExpression.AndWithNullCheck(x => x.HeightMeters > query.MinHeight);
+            }
+            if (query.MaxHeight != null)
+            {
+                filterExpression = filterExpression.AndWithNullCheck(x => x.HeightMeters < query.MaxHeight);
+            }
+
+            return filterExpression;
         }
     }
 }
