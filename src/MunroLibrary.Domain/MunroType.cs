@@ -2,7 +2,7 @@
 {
     public enum MunroType
     {
-        Munro,
-        Top
+        MUN,
+        TOP
     }
 }

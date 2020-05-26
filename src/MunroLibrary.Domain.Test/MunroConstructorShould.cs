@@ -13,7 +13,7 @@ namespace MunroLibrary.Domain.Test
             const string name = "Test";
             const decimal heightMeters = 1.1m;
             const string gridRef = "1234567";
-            const MunroType munroType = MunroType.Munro;
+            const MunroType munroType = MunroType.MUN;
 
             // Act
             var sut = new Munro(id, name, heightMeters, gridRef, munroType);
@@ -35,7 +35,7 @@ namespace MunroLibrary.Domain.Test
                 "Test"
                 , 1.0m,
                 "1234",
-                MunroType.Munro));
+                MunroType.MUN));
 
             // Assert
             Assert.Equal("id must be greater than 0!", exception.Message);
@@ -53,7 +53,7 @@ namespace MunroLibrary.Domain.Test
                 parameter,
                 1.0m,
                 "1234",
-                MunroType.Munro));
+                MunroType.MUN));
 
             // Assert
             Assert.Equal("name", exception.ParamName);
@@ -71,7 +71,7 @@ namespace MunroLibrary.Domain.Test
                 "TEST",
                 1.0m,
                 parameter,
-                MunroType.Munro));
+                MunroType.MUN));
 
             // Assert
             Assert.Equal("gridRef", exception.ParamName);

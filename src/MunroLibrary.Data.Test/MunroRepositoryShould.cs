@@ -1,25 +1,25 @@
-using MunroLibrary.Data.Test.Mocks;
-using MunroLibrary.Domain;
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace MunroLibrary.Data.Test
 {
     public class MunroRepositoryShould
     {
+        /// <summary>
+        /// Just test the expected CSV lines until we change the approach for retrieving data
+        /// </summary>
         [Fact]
-        public void Get_Data()
+        public void Return_Some_Data()
         {
             // Arrange
-            var expectedResult = new List<Munro>();
+            var expectedCount = 499;
 
             // Act
-            var sut = new MockMunroRepository();
-            var result = sut.GetData();
+            var sut = new MunroRepository();
+            var result = sut.GetData().ToList();
 
             // Assert
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedCount, result.Count());
         }
     }
 }
