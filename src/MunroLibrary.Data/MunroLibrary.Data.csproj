@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="munrotab_v6.2.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="munrotab_v6.2.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MunroLibrary.Domain\MunroLibrary.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

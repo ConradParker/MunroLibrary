@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunroLibrary.Api", "MunroLibrary.Api\MunroLibrary.Api.csproj", "{1E3F5355-7FB4-4F8B-9573-9EA505C4820D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MunroLibrary.Domain", "MunroLibrary.Domain\MunroLibrary.Domain.csproj", "{CAB2804E-EBF3-4B61-9B67-1C9989DCD81B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MunroLibrary.Data", "MunroLibrary.Data\MunroLibrary.Data.csproj", "{90093F4D-5E95-4338-B899-A4E143B7A0A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MunroLibrary.Domain.Test", "MunroLibrary.Domain.Test\MunroLibrary.Domain.Test.csproj", "{1D8A187F-047B-4EC0-B839-2C487D64114F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MunroLibrary.Data.Test", "MunroLibrary.Data.Test\MunroLibrary.Data.Test.csproj", "{EE84EAFE-6233-491B-AA41-8C8FEBFF4AF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E3F5355-7FB4-4F8B-9573-9EA505C4820D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3F5355-7FB4-4F8B-9573-9EA505C4820D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3F5355-7FB4-4F8B-9573-9EA505C4820D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3F5355-7FB4-4F8B-9573-9EA505C4820D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB2804E-EBF3-4B61-9B67-1C9989DCD81B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB2804E-EBF3-4B61-9B67-1C9989DCD81B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB2804E-EBF3-4B61-9B67-1C9989DCD81B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB2804E-EBF3-4B61-9B67-1C9989DCD81B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90093F4D-5E95-4338-B899-A4E143B7A0A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90093F4D-5E95-4338-B899-A4E143B7A0A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90093F4D-5E95-4338-B899-A4E143B7A0A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90093F4D-5E95-4338-B899-A4E143B7A0A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8A187F-047B-4EC0-B839-2C487D64114F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8A187F-047B-4EC0-B839-2C487D64114F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8A187F-047B-4EC0-B839-2C487D64114F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8A187F-047B-4EC0-B839-2C487D64114F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE84EAFE-6233-491B-AA41-8C8FEBFF4AF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE84EAFE-6233-491B-AA41-8C8FEBFF4AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE84EAFE-6233-491B-AA41-8C8FEBFF4AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE84EAFE-6233-491B-AA41-8C8FEBFF4AF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2F50890-6F32-49F7-A9CE-1CFD7B8CDEC2}
+	EndGlobalSection
+EndGlobal
