@@ -7,23 +7,7 @@ namespace MunroLibrary.Api.Extensions
     public static class ExpressionExtensions
     {
         /// <summary>
-        /// Add Or clause to existing expression.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="expr1"></param>
-        /// <param name="expr2"></param>
-        /// <returns></returns>
-        public static Expression<Func<T, bool>> Or<T>(
-            this Expression<Func<T, bool>> expr1,
-            Expression<Func<T, bool>> expr2)
-        {
-            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
-            return Expression.Lambda<Func<T, bool>>(
-                  Expression.OrElse(expr1.Body, invokedExpr), expr1.Parameters);
-        }
-
-        /// <summary>
-        /// Add And clause to existing expression.
+        /// Add And clause with null check to existing expression
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="expr1"></param>
@@ -33,9 +17,7 @@ namespace MunroLibrary.Api.Extensions
             this Expression<Func<T, bool>> expr1,
             Expression<Func<T, bool>> expr2)
         {
-            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
-            return Expression.Lambda<Func<T, bool>>(
-                Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
+            return expr1 == null ? expr2 : expr1.AndAlso(expr2);
         }
 
         /// <summary>
@@ -45,11 +27,43 @@ namespace MunroLibrary.Api.Extensions
         /// <param name="expr1"></param>
         /// <param name="expr2"></param>
         /// <returns></returns>
-        public static Expression<Func<T, bool>> AndWithNullCheck<T>(
+        public static Expression<Func<T, bool>> Or<T>(
             this Expression<Func<T, bool>> expr1,
             Expression<Func<T, bool>> expr2)
         {
-            return expr1 == null ? expr2 : expr1.And(expr2);
+            return expr1 == null ? expr2 : expr1.OrElse(expr2);
+        }
+
+        /// <summary>
+        /// Add AndAlso clause to existing expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expr1"></param>
+        /// <param name="expr2"></param>
+        /// <returns></returns>
+        private static Expression<Func<T, bool>> AndAlso<T>(
+            this Expression<Func<T, bool>> expr1,
+            Expression<Func<T, bool>> expr2)
+        {
+            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
+            return Expression.Lambda<Func<T, bool>>(
+                Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
+        }
+
+        /// <summary>
+        /// Add Or clause to existing expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expr1"></param>
+        /// <param name="expr2"></param>
+        /// <returns></returns>
+        private static Expression<Func<T, bool>> OrElse<T>(
+            this Expression<Func<T, bool>> expr1,
+            Expression<Func<T, bool>> expr2)
+        {
+            var invokedExpr = Expression.Invoke(expr2, expr1.Parameters.Cast<Expression>());
+            return Expression.Lambda<Func<T, bool>>(
+                  Expression.OrElse(expr1.Body, invokedExpr), expr1.Parameters);
         }
     }
 }

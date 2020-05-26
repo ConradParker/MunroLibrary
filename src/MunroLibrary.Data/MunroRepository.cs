@@ -14,31 +14,6 @@ namespace MunroLibrary.Data
         // Assume we will move to a db or other method later.
         private readonly string dataFile = $"{AppDomain.CurrentDomain.BaseDirectory}munrotab_v6.2.csv";
 
-        public IEnumerable<Munro> GetData()
-        {
-            // Initialise return value
-            var munros = new List<Munro>();
-
-            // Get data and loop
-            File.ReadLines(dataFile)
-                .ToList()
-                .ForEach(row =>
-                {
-                    if(IsValidRow(row))
-                    {
-                        // Add valid items to our return list
-                        munros.Add(new Munro(
-                            GetByIndex<int>(row, DataIndex.Id),
-                            GetByIndex<string>(row, DataIndex.Name),
-                            GetByIndex<decimal>(row, DataIndex.HeightMeters),
-                            GetByIndex<string>(row, DataIndex.GridRef),
-                            GetByIndex<MunroType>(row, DataIndex.MunroType)));
-                    }     
-                });
-
-            return munros;
-        }
-
         public PagedResult<Munro> GetPaged(
             int page,
             int pageSize,
@@ -46,7 +21,7 @@ namespace MunroLibrary.Data
             bool sortDescending,
             Expression<Func<Munro, bool>> filterBy)
         {
-            var query = GetData().AsQueryable();
+            var query = GetCsvData().AsQueryable();
 
             // Sorting
             if (sortFields != null && sortFields.Length > 0)
@@ -78,7 +53,30 @@ namespace MunroLibrary.Data
             return query.GetPaged(page, pageSize);
         }
 
+        private IEnumerable<Munro> GetCsvData()
+        {
+            // Initialise return value
+            var munros = new List<Munro>();
 
+            // Get data and loop
+            File.ReadLines(dataFile)
+                .ToList()
+                .ForEach(row =>
+                {
+                    if (IsValidRow(row))
+                    {
+                        // Add valid items to our return list
+                        munros.Add(new Munro(
+                            GetByIndex<int>(row, DataIndex.Id),
+                            GetByIndex<string>(row, DataIndex.Name),
+                            GetByIndex<decimal>(row, DataIndex.HeightMeters),
+                            GetByIndex<string>(row, DataIndex.GridRef),
+                            GetByIndex<MunroType>(row, DataIndex.MunroType)));
+                    }
+                });
+
+            return munros;
+        }
 
         /// <summary>
         /// Get columns from a row

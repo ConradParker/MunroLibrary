@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IntegrationTests\" />
+    <ProjectReference Include="..\MunroLibrary.Api\MunroLibrary.Api.csproj" />
   </ItemGroup>
 
 </Project>

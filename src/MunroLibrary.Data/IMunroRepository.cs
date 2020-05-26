@@ -7,7 +7,6 @@ namespace MunroLibrary.Data
 {
     public interface IMunroRepository
     {
-        IEnumerable<Munro> GetData();
         PagedResult<Munro> GetPaged(
             int page,
             int pageSize,

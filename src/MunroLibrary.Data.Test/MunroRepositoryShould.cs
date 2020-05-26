@@ -1,4 +1,7 @@
+using MunroLibrary.Domain;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Xunit;
 
 namespace MunroLibrary.Data.Test
@@ -13,13 +16,15 @@ namespace MunroLibrary.Data.Test
         {
             // Arrange
             var expectedCount = 499;
+            Expression<Func<Munro, bool>> filter = null;
 
             // Act
             var sut = new MunroRepository();
-            var result = sut.GetData().ToList();
+            var result = sut.GetPaged(1, expectedCount, null, false, filter);
 
             // Assert
-            Assert.Equal(expectedCount, result.Count());
+            Assert.Equal(expectedCount, result.Results.Count());
+            Assert.Equal(expectedCount, result.TotalCount);
         }
     }
 }
